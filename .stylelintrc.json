@@ -4,6 +4,6 @@
     "selector-class-pattern": null,
     "no-descending-specificity": null,
     "no-empty-source": null,
-    "media-feature-range-notation": "plain"
+    "media-feature-range-notation": null
   }
 }
