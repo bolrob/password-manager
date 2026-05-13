@@ -1,5 +1,3 @@
-import { AuthService } from './auth.service';
-
 describe('AuthService (localStorage)', () => {
   beforeEach(() => {
     localStorage.clear();

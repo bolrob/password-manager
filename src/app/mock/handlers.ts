@@ -27,7 +27,7 @@ export const handlers = [
     if (!user) {
       return HttpResponse.json({ message: 'Invalid credentials' }, { status: 401 });
     }
-    const { password: _, ...userWithoutPassword } = user;
+    const { password: _pw, ...userWithoutPassword } = user;
     return HttpResponse.json({ token: generateToken(user.id), user: userWithoutPassword });
   }),
 
@@ -38,7 +38,7 @@ export const handlers = [
     }
     const newUser = { id: `user-${++nextId}`, ...body };
     MOCK_USERS.push(newUser);
-    const { password: _, ...userWithoutPassword } = newUser;
+    const { password: _pw, ...userWithoutPassword } = newUser;
     return HttpResponse.json({ token: generateToken(newUser.id), user: userWithoutPassword });
   }),
 
