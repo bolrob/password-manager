@@ -1,59 +1,102 @@
-# PasswordManager
+# PassVault — Менеджер паролей
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.11.
+Веб-приложение для безопасного хранения учётных данных с генерацией паролей, категоризацией, поиском и историей изменений.
 
-## Development server
+**Деплой:** _ссылка появится после настройки GitLab Pages_
 
-To start a local development server, run:
+---
 
-```bash
-ng serve
+## Стек
+
+| Технология | Версия |
+|-----------|--------|
+| Angular | 21 |
+| Taiga UI | 5 |
+| NgRx Signal Store | 21 |
+| MSW (Mock Service Worker) | 2 |
+| Jest + jest-preset-angular | 30 / 16 |
+| Playwright | 1.60 |
+| TypeScript | 5.9 |
+
+---
+
+## Структура проекта
+
+```
+src/app/
+├── core/
+│   ├── guards/          # authGuard, noAuthGuard
+│   ├── interceptors/    # authInterceptor, errorInterceptor
+│   ├── models/          # TypeScript-интерфейсы
+│   └── services/        # AuthService, CredentialService, PasswordService
+├── features/
+│   ├── auth/            # login, register (lazy)
+│   ├── vault/           # list, form, detail + VaultStore (lazy)
+│   └── generator/       # генератор паролей (lazy)
+├── mock/                # MSW handlers + mock data
+└── shared/
+    ├── pipes/           # strengthColor, strengthLabel
+    └── utils/           # category labels/icons
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+---
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Запуск
 
 ```bash
-ng generate component component-name
+# Установить зависимости
+npm install
+
+# Запустить dev-сервер (MSW подключится автоматически)
+npm start
+# Откройте http://localhost:4200
+# Демо: demo@example.com / Demo1234!
+
+# Сборка для production
+npm run build:prod
+
+# Unit-тесты (Jest)
+npm test
+
+# E2E тесты (Playwright)
+npm run test:e2e
+
+# Линтеры
+npm run lint
+npm run lint:styles
+npm run format:check
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+---
 
-```bash
-ng generate --help
-```
+## Функциональность
 
-## Building
+- **Авторизация** — вход / регистрация, JWT через localStorage, guards + interceptors
+- **Vault** — CRUD записей с логином, паролем, URL, заметками, категорией, тегами
+- **Категории** — соцсети, банки, работа, почта, другое
+- **Поиск** — по названию и логину, фильтр по категории и флагу «устаревший»
+- **Генератор** — настраиваемый генератор с индикатором надёжности
+- **История** — автоматическое сохранение предыдущих паролей при обновлении
+- **Напоминания** — дата смены пароля
+- **Экспорт** — JSON выгрузка всех записей
+- **Адаптивная вёрстка** — desktop / tablet / mobile
 
-To build the project run:
+---
 
-```bash
-ng build
-```
+## CI/CD
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+GitLab CI пайплайн (`.gitlab-ci.yml`):
 
-## Running unit tests
+| Стадия | Задачи |
+|--------|--------|
+| lint | ESLint, Stylelint, Prettier |
+| test | Jest (unit), Playwright (e2e) |
+| build | `ng build --configuration production` |
+| deploy | GitLab Pages (только ветка `main`) |
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+---
 
-```bash
-ng test
-```
+## Документация
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- [`docs/plan.md`](docs/plan.md) — план разработки, этапы, риски
+- [`docs/ux.md`](docs/ux.md) — персоны, user stories, дизайн-система

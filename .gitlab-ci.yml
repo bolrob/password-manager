@@ -1,0 +1,96 @@
+image: node:22-alpine
+
+stages:
+  - lint
+  - test
+  - build
+  - deploy
+
+cache:
+  key:
+    files:
+      - package-lock.json
+  paths:
+    - node_modules/
+  policy: pull-push
+
+variables:
+  npm_config_cache: '$CI_PROJECT_DIR/.npm'
+
+before_script:
+  - npm ci --prefer-offline
+
+# ── Lint ──────────────────────────────────────────────────────────────────────
+
+lint:eslint:
+  stage: lint
+  script:
+    - npm run lint
+  allow_failure: false
+
+lint:styles:
+  stage: lint
+  script:
+    - npm run lint:styles
+  allow_failure: false
+
+lint:format:
+  stage: lint
+  script:
+    - npm run format:check
+  allow_failure: false
+
+# ── Test ──────────────────────────────────────────────────────────────────────
+
+test:unit:
+  stage: test
+  script:
+    - npm run test -- --no-coverage
+  coverage: '/Lines\s*:\s*(\d+\.?\d*)%/'
+  artifacts:
+    when: always
+    reports:
+      junit: junit.xml
+
+test:e2e:
+  stage: test
+  image: mcr.microsoft.com/playwright:v1.60.0-noble
+  script:
+    - npm run build:prod
+    - npx serve dist/password-manager/browser -l 4200 &
+    - sleep 3
+    - npm run test:e2e
+  artifacts:
+    when: always
+    paths:
+      - playwright-report/
+  allow_failure: true
+
+# ── Build ─────────────────────────────────────────────────────────────────────
+
+build:prod:
+  stage: build
+  script:
+    - npm run build:prod
+  artifacts:
+    paths:
+      - dist/
+    expire_in: 1 hour
+
+# ── Deploy to GitLab Pages ─────────────────────────────────────────────────────
+
+pages:
+  stage: deploy
+  dependencies:
+    - build:prod
+  script:
+    - cp -r dist/password-manager/browser public
+    - |
+      cat > public/_redirects << 'EOF'
+      /* /index.html 200
+      EOF
+  artifacts:
+    paths:
+      - public
+  only:
+    - main
