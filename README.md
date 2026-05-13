@@ -2,7 +2,7 @@
 
 Веб-приложение для безопасного хранения учётных данных с генерацией паролей, категоризацией, поиском и историей изменений.
 
-**Деплой:** _ссылка появится после настройки GitLab Pages_
+**Деплой:** _ссылка появится после первого push на GitHub_
 
 ---
 
@@ -85,14 +85,14 @@ npm run format:check
 
 ## CI/CD
 
-GitLab CI пайплайн (`.gitlab-ci.yml`):
+GitHub Actions (`.github/workflows/ci.yml`):
 
-| Стадия | Задачи |
-|--------|--------|
+| Job | Задачи |
+|-----|--------|
 | lint | ESLint, Stylelint, Prettier |
-| test | Jest (unit), Playwright (e2e) |
+| test | Jest unit-тесты |
 | build | `ng build --configuration production` |
-| deploy | GitLab Pages (только ветка `main`) |
+| deploy | GitHub Pages (только ветка `main`) |
 
 ---
 
