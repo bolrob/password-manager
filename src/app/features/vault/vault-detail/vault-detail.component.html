@@ -1,0 +1,122 @@
+<div class="detail-page">
+  @if (credential(); as cred) {
+    <div class="detail-card">
+      <div class="detail-header">
+        <a tuiButton appearance="ghost" size="s" routerLink="/vault">← Назад</a>
+        <h1 tuiTitle>{{ cred.title }}</h1>
+        <a tuiButton appearance="outline" size="s" [routerLink]="['/vault', cred.id, 'edit']">
+          <tui-icon icon="@tui.pencil" /> Редактировать
+        </a>
+      </div>
+
+      <div class="detail-meta">
+        <span tuiChip size="s">{{ categoryLabels[cred.category] }}</span>
+        @if (cred.isFavorite) {
+          <span tuiChip size="s" appearance="warning">⭐ Избранное</span>
+        }
+        @if (cred.isExpired) {
+          <span tuiChip size="s" appearance="error">Устаревший</span>
+        }
+      </div>
+
+      <dl class="detail-fields">
+        <div class="field-row">
+          <dt>Логин</dt>
+          <dd>
+            {{ cred.username }}
+            <button tuiButton appearance="ghost" size="xs" (click)="copyToClipboard(cred.username)" aria-label="Скопировать логин">
+              <tui-icon icon="@tui.copy" />
+            </button>
+          </dd>
+        </div>
+
+        <div class="field-row">
+          <dt>Пароль</dt>
+          <dd>
+            <span class="password-value">{{ showPassword() ? cred.password : '••••••••••••' }}</span>
+            <button tuiButton appearance="ghost" size="xs" (click)="showPassword.set(!showPassword())" [attr.aria-label]="showPassword() ? 'Скрыть' : 'Показать'">
+              <tui-icon [icon]="showPassword() ? '@tui.eye-off' : '@tui.eye'" />
+            </button>
+            <button tuiButton appearance="ghost" size="xs" (click)="copyToClipboard(cred.password)" aria-label="Скопировать пароль">
+              <tui-icon icon="@tui.copy" />
+            </button>
+          </dd>
+        </div>
+
+        <div class="field-row">
+          <dt>Надёжность</dt>
+          <dd>
+            <div class="strength-bar">
+              <div
+                class="strength-fill"
+                [style.width.%]="passwordService.getStrengthScore(cred.password)"
+                [style.background]="passwordService.getStrength(cred.password) | strengthColor"
+              ></div>
+            </div>
+            <span [style.color]="passwordService.getStrength(cred.password) | strengthColor">
+              {{ passwordService.getStrength(cred.password) | strengthLabel }}
+            </span>
+          </dd>
+        </div>
+
+        @if (cred.url) {
+          <div class="field-row">
+            <dt>URL</dt>
+            <dd><a [href]="cred.url" target="_blank" rel="noopener noreferrer">{{ cred.url }}</a></dd>
+          </div>
+        }
+
+        @if (cred.notes) {
+          <div class="field-row">
+            <dt>Заметки</dt>
+            <dd>{{ cred.notes }}</dd>
+          </div>
+        }
+
+        @if (cred.reminderDate) {
+          <div class="field-row">
+            <dt>Напоминание</dt>
+            <dd>{{ cred.reminderDate | date:'dd.MM.yyyy' }}</dd>
+          </div>
+        }
+
+        @if (cred.tags.length > 0) {
+          <div class="field-row">
+            <dt>Теги</dt>
+            <dd class="tags-row">
+              @for (tag of cred.tags; track tag) {
+                <span tuiChip size="xs">{{ tag }}</span>
+              }
+            </dd>
+          </div>
+        }
+
+        <div class="field-row">
+          <dt>Создано</dt>
+          <dd>{{ cred.createdAt | date:'dd.MM.yyyy HH:mm' }}</dd>
+        </div>
+
+        <div class="field-row">
+          <dt>Обновлено</dt>
+          <dd>{{ cred.updatedAt | date:'dd.MM.yyyy HH:mm' }}</dd>
+        </div>
+      </dl>
+
+      @if (cred.passwordHistory.length > 0) {
+        <section class="history-section" aria-labelledby="history-heading">
+          <h2 id="history-heading" class="history-title">История паролей</h2>
+          <ul class="history-list">
+            @for (entry of cred.passwordHistory; track entry.changedAt) {
+              <li class="history-item">
+                <span class="history-password">••••••••</span>
+                <span class="history-date">{{ entry.changedAt | date:'dd.MM.yyyy HH:mm' }}</span>
+              </li>
+            }
+          </ul>
+        </section>
+      }
+    </div>
+  } @else {
+    <div class="detail-loading">Загрузка...</div>
+  }
+</div>

@@ -1,0 +1,176 @@
+<div class="vault-layout">
+  <!-- Sidebar -->
+  <aside class="vault-sidebar" aria-label="Навигация">
+    <div class="sidebar-header">
+      <tui-icon icon="@tui.shield" class="brand-icon" aria-hidden="true" />
+      <span tuiTitle class="brand-title">PassVault</span>
+    </div>
+
+    <nav class="sidebar-nav">
+      <button
+        tuiButton
+        appearance="flat"
+        class="nav-btn"
+        [class.nav-btn--active]="selectedCategory === ''"
+        (click)="selectedCategory = ''; applyFilter()"
+      >
+        <tui-icon icon="@tui.grid" /> Все записи
+        <span tuiBadge size="s" class="nav-badge">{{ store.totalCount() }}</span>
+      </button>
+
+      @for (cat of allCategories; track cat) {
+        <button
+          tuiButton
+          appearance="flat"
+          class="nav-btn"
+          [class.nav-btn--active]="selectedCategory === cat"
+          (click)="selectedCategory = cat; applyFilter()"
+        >
+          {{ categoryLabels[cat] }}
+        </button>
+      }
+
+      <button
+        tuiButton
+        appearance="flat"
+        class="nav-btn nav-btn--danger"
+        [class.nav-btn--active]="showExpiredOnly"
+        (click)="showExpiredOnly = !showExpiredOnly; applyFilter()"
+      >
+        <tui-icon icon="@tui.clock" /> Устаревшие
+        @if (store.expiredCount() > 0) {
+          <span tuiBadge size="s" appearance="negative" class="nav-badge">{{ store.expiredCount() }}</span>
+        }
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <button tuiButton appearance="flat" routerLink="/generator">
+        <tui-icon icon="@tui.wand" /> Генератор
+      </button>
+      <button tuiButton appearance="flat" (click)="exportData()">
+        <tui-icon icon="@tui.download" /> Экспорт
+      </button>
+      <button tuiButton appearance="flat" (click)="logout()">
+        <tui-icon icon="@tui.log-out" /> Выйти ({{ currentUser?.name }})
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main content -->
+  <main class="vault-main">
+    <header class="vault-header">
+      <div class="search-bar">
+        <tui-textfield>
+          <input
+            tuiTextfield
+            [(ngModel)]="searchQuery"
+            (ngModelChange)="applyFilter()"
+            placeholder="Поиск по названию или логину..."
+            aria-label="Поиск записей"
+          />
+        </tui-textfield>
+      </div>
+
+      <a tuiButton appearance="primary" routerLink="/vault/new" aria-label="Добавить запись">
+        <tui-icon icon="@tui.plus" /> Добавить
+      </a>
+    </header>
+
+    @if (store.loading()) {
+      <div class="vault-loading" role="status" aria-live="polite">Загрузка...</div>
+    } @else if (store.error()) {
+      <div class="vault-error" role="alert">{{ store.error() }}</div>
+    } @else if (store.filteredCredentials().length === 0) {
+      <div class="vault-empty">
+        <tui-icon icon="@tui.folder-open" class="empty-icon" aria-hidden="true" />
+        <p>Записей не найдено</p>
+        <a tuiButton appearance="outline" routerLink="/vault/new">Добавить первую запись</a>
+      </div>
+    } @else {
+      <ul class="credential-list" aria-label="Список записей">
+        @for (cred of store.filteredCredentials(); track cred.id) {
+          <li class="credential-card" [class.credential-card--expired]="cred.isExpired">
+            <div class="card-main">
+              <div class="card-info">
+                <div class="card-title-row">
+                  <strong class="card-title">{{ cred.title }}</strong>
+                  @if (cred.isFavorite) {
+                    <tui-icon icon="@tui.star" class="icon-favorite" aria-label="Избранное" />
+                  }
+                  @if (cred.isExpired) {
+                    <span tuiChip appearance="warning" size="s">Устаревший</span>
+                  }
+                  <span tuiChip size="s">{{ categoryLabels[cred.category] }}</span>
+                </div>
+                <span class="card-username">{{ cred.username }}</span>
+
+                <div class="card-password-row">
+                  <span class="card-password" [class.card-password--visible]="isPasswordVisible(cred.id)">
+                    {{ isPasswordVisible(cred.id) ? cred.password : '••••••••' }}
+                  </span>
+                  <button
+                    tuiButton
+                    appearance="ghost"
+                    size="xs"
+                    (click)="togglePasswordVisibility(cred.id)"
+                    [attr.aria-label]="isPasswordVisible(cred.id) ? 'Скрыть пароль' : 'Показать пароль'"
+                  >
+                    <tui-icon [icon]="isPasswordVisible(cred.id) ? '@tui.eye-off' : '@tui.eye'" />
+                  </button>
+                  <button
+                    tuiButton
+                    appearance="ghost"
+                    size="xs"
+                    (click)="copyToClipboard(cred.password)"
+                    aria-label="Скопировать пароль"
+                  >
+                    <tui-icon icon="@tui.copy" />
+                  </button>
+                </div>
+
+                @if (cred.tags.length > 0) {
+                  <div class="card-tags" aria-label="Теги">
+                    @for (tag of cred.tags; track tag) {
+                      <span tuiChip size="xs">{{ tag }}</span>
+                    }
+                  </div>
+                }
+              </div>
+
+              <div class="card-actions">
+                <a
+                  tuiButton
+                  appearance="ghost"
+                  size="s"
+                  [routerLink]="['/vault', cred.id, 'edit']"
+                  aria-label="Редактировать"
+                >
+                  <tui-icon icon="@tui.pencil" />
+                </a>
+                <button
+                  tuiButton
+                  appearance="ghost"
+                  size="s"
+                  (click)="toggleExpired(cred.id, cred.isExpired)"
+                  [attr.aria-label]="cred.isExpired ? 'Отметить актуальным' : 'Отметить устаревшим'"
+                >
+                  <tui-icon [icon]="cred.isExpired ? '@tui.check-circle' : '@tui.clock'" />
+                </button>
+                <button
+                  tuiButton
+                  appearance="ghost"
+                  size="s"
+                  (click)="delete(cred.id)"
+                  aria-label="Удалить"
+                >
+                  <tui-icon icon="@tui.trash-2" />
+                </button>
+              </div>
+            </div>
+          </li>
+        }
+      </ul>
+    }
+  </main>
+</div>

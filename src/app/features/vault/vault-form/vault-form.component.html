@@ -1,0 +1,128 @@
+<div class="form-page">
+  <div class="form-card">
+    <div class="form-header">
+      <a tuiButton appearance="ghost" size="s" routerLink="/vault">← Назад</a>
+      <h1 class="form-title">{{ isEditMode() ? 'Редактировать запись' : 'Новая запись' }}</h1>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      <div class="form-grid">
+        <label tuiLabel>
+          Название *
+          <tui-textfield>
+            <input tuiTextfield formControlName="title" placeholder="Например: GitHub" />
+          </tui-textfield>
+        </label>
+        <tui-error formControlName="title" />
+
+        <label tuiLabel>
+          Логин / Email *
+          <tui-textfield>
+            <input tuiTextfield formControlName="username" placeholder="user@example.com" autocomplete="off" />
+          </tui-textfield>
+        </label>
+        <tui-error formControlName="username" />
+
+        <div class="password-field">
+          <label tuiLabel>
+            Пароль *
+            <div class="password-input-row">
+              <tui-textfield class="password-textfield">
+                <input
+                  tuiTextfield
+                  formControlName="password"
+                  [type]="showPassword() ? 'text' : 'password'"
+                  placeholder="Введите или сгенерируйте"
+                  autocomplete="new-password"
+                />
+              </tui-textfield>
+              <button type="button" tuiButton appearance="ghost" size="s" (click)="showPassword.set(!showPassword())">
+                {{ showPassword() ? '🙈' : '👁' }}
+              </button>
+              <button type="button" tuiButton appearance="outline" size="s" (click)="generatePassword()">
+                Генерировать
+              </button>
+            </div>
+          </label>
+
+          @if (form.get('password')?.value) {
+            <div class="strength-bar" role="progressbar" [attr.aria-valuenow]="passwordScore" aria-valuemin="0" aria-valuemax="100">
+              <div
+                class="strength-fill"
+                [style.width.%]="passwordScore"
+                [style.background]="passwordStrength | strengthColor"
+              ></div>
+            </div>
+            <span class="strength-label" [style.color]="passwordStrength | strengthColor">
+              {{ passwordStrength | strengthLabel }}
+            </span>
+          }
+          <tui-error formControlName="password" />
+        </div>
+
+        <label tuiLabel>
+          URL
+          <tui-textfield>
+            <input tuiTextfield formControlName="url" type="url" placeholder="https://example.com" />
+          </tui-textfield>
+        </label>
+
+        <label tuiLabel>
+          Категория *
+          <tui-textfield>
+            <select tuiTextfield formControlName="category" aria-label="Выберите категорию">
+              @for (cat of allCategories; track cat) {
+                <option [value]="cat">{{ categoryLabels[cat] }}</option>
+              }
+            </select>
+          </tui-textfield>
+        </label>
+
+        <label tuiLabel>
+          Теги (через запятую)
+          <tui-textfield>
+            <input
+              tuiTextfield
+              [ngModel]="tagsInput()"
+              [ngModelOptions]="{ standalone: true }"
+              (ngModelChange)="tagsInput.set($event)"
+              placeholder="dev, работа, личное"
+            />
+          </tui-textfield>
+        </label>
+
+        <label tuiLabel>
+          Заметки
+          <tui-textfield>
+            <textarea tuiTextfield formControlName="notes" rows="3" placeholder="Дополнительная информация"></textarea>
+          </tui-textfield>
+        </label>
+
+        <label tuiLabel>
+          Напоминание о смене (дата)
+          <tui-textfield>
+            <input tuiTextfield formControlName="reminderDate" type="date" />
+          </tui-textfield>
+        </label>
+
+        <div class="checkboxes">
+          <label class="checkbox-label">
+            <input type="checkbox" formControlName="isFavorite" />
+            ⭐ Избранное
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" formControlName="isExpired" />
+            🕐 Отметить как устаревший
+          </label>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <a tuiButton appearance="outline" routerLink="/vault">Отмена</a>
+        <button tuiButton type="submit" appearance="primary">
+          {{ isEditMode() ? 'Сохранить' : 'Создать' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

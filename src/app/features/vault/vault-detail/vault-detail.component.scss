@@ -1,0 +1,140 @@
+.detail-page {
+  min-height: 100vh;
+  background: var(--tui-background-base-alt);
+  display: flex;
+  justify-content: center;
+  padding: 2rem 1rem;
+}
+
+.detail-card {
+  width: 100%;
+  max-width: 680px;
+  background: var(--tui-background-base);
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: var(--tui-shadow-medium);
+  height: fit-content;
+}
+
+.detail-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+
+  h1 {
+    flex: 1;
+  }
+}
+
+.detail-meta {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+
+.detail-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 0;
+}
+
+.field-row {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 0.5rem 1rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--tui-border-normal);
+  align-items: center;
+
+  dt {
+    font-weight: 600;
+    color: var(--tui-text-secondary);
+    font-size: 0.875rem;
+  }
+
+  dd {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    flex-wrap: wrap;
+    margin: 0;
+  }
+}
+
+.password-value {
+  font-family: monospace;
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+}
+
+.strength-bar {
+  width: 120px;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--tui-border-normal);
+  overflow: hidden;
+  margin-right: 0.5rem;
+}
+
+.strength-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+.tags-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+.history-section {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--tui-border-normal);
+}
+
+.history-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: var(--tui-text-secondary);
+}
+
+.history-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.history-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0.75rem;
+  background: var(--tui-background-base-alt);
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.history-password {
+  font-family: monospace;
+  letter-spacing: 0.1em;
+  color: var(--tui-text-secondary);
+}
+
+.history-date {
+  color: var(--tui-text-tertiary);
+}
+
+.detail-loading {
+  padding: 3rem;
+  text-align: center;
+  color: var(--tui-text-secondary);
+}

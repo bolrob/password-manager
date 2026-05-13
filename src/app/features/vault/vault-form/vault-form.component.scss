@@ -1,0 +1,93 @@
+.form-page {
+  min-height: 100vh;
+  background: var(--tui-background-base-alt);
+  display: flex;
+  justify-content: center;
+  padding: 2rem 1rem;
+}
+
+.form-card {
+  width: 100%;
+  max-width: 640px;
+  background: var(--tui-background-base);
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: var(--tui-shadow-medium);
+  height: fit-content;
+}
+
+.form-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.form-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.password-input-row {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+
+  input {
+    flex: 1;
+  }
+}
+
+.password-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.strength-bar {
+  height: 4px;
+  border-radius: 2px;
+  background: var(--tui-border-normal);
+  overflow: hidden;
+}
+
+.strength-fill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 0.3s ease, background 0.3s ease;
+}
+
+.strength-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.checkboxes {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  user-select: none;
+
+  input[type='checkbox'] {
+    width: 1rem;
+    height: 1rem;
+    cursor: pointer;
+  }
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--tui-border-normal);
+}

@@ -1,0 +1,60 @@
+@use '../login/login.component' as login;
+
+.auth-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: var(--tui-background-base-alt);
+  padding: 1rem;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 400px;
+  background: var(--tui-background-base);
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: var(--tui-shadow-medium);
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+}
+
+.auth-subtitle {
+  color: var(--tui-text-secondary);
+  margin: 0.25rem 0 0;
+}
+
+.auth-error {
+  background: var(--tui-status-negative-pale);
+  color: var(--tui-status-negative);
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  margin-top: 1rem;
+  font-size: 0.875rem;
+}
+
+.auth-submit {
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+.auth-link {
+  text-align: center;
+  margin-top: 1.5rem;
+  color: var(--tui-text-secondary);
+
+  a {
+    color: var(--tui-text-action);
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

@@ -1,0 +1,84 @@
+<div class="generator-page">
+  <div class="generator-card">
+    <div class="generator-header">
+      <a tuiButton appearance="ghost" size="s" routerLink="/vault">← Назад</a>
+      <h1 class="generator-title">Генератор паролей</h1>
+    </div>
+
+    <div class="options-grid">
+      <label tuiLabel>
+        Длина: {{ options().length }}
+        <input
+          type="range"
+          class="length-slider"
+          [ngModel]="options().length"
+          (ngModelChange)="updateOption('length', +$event)"
+          min="8"
+          max="64"
+          step="1"
+          aria-label="Длина пароля"
+        />
+      </label>
+
+      <div class="checkboxes" role="group" aria-label="Набор символов">
+        <label class="checkbox-label">
+          <input type="checkbox" [ngModel]="options().uppercase" (ngModelChange)="updateOption('uppercase', $event)" />
+          A–Z (заглавные)
+        </label>
+        <label class="checkbox-label">
+          <input type="checkbox" [ngModel]="options().lowercase" (ngModelChange)="updateOption('lowercase', $event)" />
+          a–z (строчные)
+        </label>
+        <label class="checkbox-label">
+          <input type="checkbox" [ngModel]="options().numbers" (ngModelChange)="updateOption('numbers', $event)" />
+          0–9 (цифры)
+        </label>
+        <label class="checkbox-label">
+          <input type="checkbox" [ngModel]="options().symbols" (ngModelChange)="updateOption('symbols', $event)" />
+          !&#64;#$ (символы)
+        </label>
+      </div>
+    </div>
+
+    <button tuiButton appearance="primary" class="generate-btn" (click)="generate()">
+      <tui-icon icon="@tui.wand" /> Сгенерировать
+    </button>
+
+    @if (generated()) {
+      <div class="result-section">
+        <div class="result-box">
+          <span class="result-password" aria-live="polite">{{ generated() }}</span>
+          <button
+            tuiButton
+            appearance="ghost"
+            size="s"
+            (click)="copyToClipboard()"
+            [attr.aria-label]="copied() ? 'Скопировано!' : 'Скопировать'"
+          >
+            <tui-icon [icon]="copied() ? '@tui.check' : '@tui.copy'" />
+            {{ copied() ? 'Скопировано!' : 'Копировать' }}
+          </button>
+        </div>
+
+        <div class="strength-section" role="status" aria-label="Надёжность пароля">
+          <div
+            class="strength-bar"
+            role="progressbar"
+            [attr.aria-valuenow]="strengthScore"
+            aria-valuemin="0"
+            aria-valuemax="100"
+          >
+            <div
+              class="strength-fill"
+              [style.width.%]="strengthScore"
+              [style.background]="strength | strengthColor"
+            ></div>
+          </div>
+          <span class="strength-label" [style.color]="strength | strengthColor">
+            {{ strength | strengthLabel }}
+          </span>
+        </div>
+      </div>
+    }
+  </div>
+</div>

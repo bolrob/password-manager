@@ -1,0 +1,54 @@
+<div class="auth-page">
+  <div class="auth-card">
+    <h1 class="auth-title">PassVault</h1>
+    <p class="auth-subtitle">Войдите в аккаунт</p>
+
+    @if (error()) {
+      <div class="auth-error" role="alert">{{ error() }}</div>
+    }
+
+    <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      <label tuiLabel>
+        Email
+        <tui-textfield>
+          <input
+            tuiTextfield
+            formControlName="email"
+            type="email"
+            placeholder="demo@example.com"
+            autocomplete="email"
+          />
+        </tui-textfield>
+      </label>
+      <tui-error formControlName="email" />
+
+      <label tuiLabel>
+        Пароль
+        <tui-textfield>
+          <input
+            tuiTextfield
+            formControlName="password"
+            type="password"
+            placeholder="Введите пароль"
+            autocomplete="current-password"
+          />
+        </tui-textfield>
+      </label>
+      <tui-error formControlName="password" />
+
+      <button
+        tuiButton
+        type="submit"
+        appearance="primary"
+        class="auth-submit"
+      >
+        {{ loading() ? 'Загрузка...' : 'Войти' }}
+      </button>
+    </form>
+
+    <p class="auth-link">
+      Нет аккаунта? <a routerLink="/auth/register">Зарегистрироваться</a>
+    </p>
+    <p class="auth-demo">Демо: demo&#64;example.com / Demo1234!</p>
+  </div>
+</div>

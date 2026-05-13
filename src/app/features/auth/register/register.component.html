@@ -1,0 +1,62 @@
+<div class="auth-page">
+  <div class="auth-card">
+    <h1 class="auth-title">Регистрация</h1>
+    <p class="auth-subtitle">Создайте аккаунт</p>
+
+    @if (error()) {
+      <div class="auth-error" role="alert">{{ error() }}</div>
+    }
+
+    <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      <label tuiLabel>
+        Имя
+        <tui-textfield>
+          <input
+            tuiTextfield
+            formControlName="name"
+            type="text"
+            placeholder="Ваше имя"
+            autocomplete="name"
+          />
+        </tui-textfield>
+      </label>
+      <tui-error formControlName="name" />
+
+      <label tuiLabel>
+        Email
+        <tui-textfield>
+          <input
+            tuiTextfield
+            formControlName="email"
+            type="email"
+            placeholder="email@example.com"
+            autocomplete="email"
+          />
+        </tui-textfield>
+      </label>
+      <tui-error formControlName="email" />
+
+      <label tuiLabel>
+        Пароль
+        <tui-textfield>
+          <input
+            tuiTextfield
+            formControlName="password"
+            type="password"
+            placeholder="Минимум 8 символов"
+            autocomplete="new-password"
+          />
+        </tui-textfield>
+      </label>
+      <tui-error formControlName="password" />
+
+      <button tuiButton type="submit" appearance="primary" class="auth-submit">
+        {{ loading() ? 'Загрузка...' : 'Создать аккаунт' }}
+      </button>
+    </form>
+
+    <p class="auth-link">
+      Уже есть аккаунт? <a routerLink="/auth/login">Войти</a>
+    </p>
+  </div>
+</div>

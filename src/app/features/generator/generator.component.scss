@@ -1,0 +1,114 @@
+.generator-page {
+  min-height: 100vh;
+  background: var(--tui-background-base-alt);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 2rem 1rem;
+}
+
+.generator-card {
+  width: 100%;
+  max-width: 520px;
+  background: var(--tui-background-base);
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: var(--tui-shadow-medium);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.generator-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.options-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.length-slider {
+  width: 100%;
+  margin-top: 0.5rem;
+  accent-color: var(--tui-text-action);
+}
+
+.checkboxes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  user-select: none;
+  font-size: 0.9rem;
+
+  input[type='checkbox'] {
+    width: 1rem;
+    height: 1rem;
+    cursor: pointer;
+    accent-color: var(--tui-text-action);
+  }
+}
+
+.generate-btn {
+  width: 100%;
+}
+
+.result-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.result-box {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: var(--tui-background-base-alt);
+  border: 1px solid var(--tui-border-normal);
+  border-radius: 0.75rem;
+  padding: 0.75rem 1rem;
+}
+
+.result-password {
+  flex: 1;
+  font-family: monospace;
+  font-size: 1rem;
+  word-break: break-all;
+  letter-spacing: 0.05em;
+}
+
+.strength-section {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.strength-bar {
+  flex: 1;
+  height: 8px;
+  border-radius: 4px;
+  background: var(--tui-border-normal);
+  overflow: hidden;
+}
+
+.strength-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.3s ease, background 0.3s ease;
+}
+
+.strength-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  min-width: 80px;
+}
