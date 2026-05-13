@@ -14,8 +14,7 @@ module.exports = [
     languageOptions: {
       parser: tsParser,
       parserOptions: {
-        project: ['tsconfig.json', 'tsconfig.spec.json'],
-        createDefaultProgram: true,
+        project: ['tsconfig.eslint.json'],
       },
     },
     plugins: {

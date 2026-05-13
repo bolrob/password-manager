@@ -1,11 +1,8 @@
 import { AuthService } from './auth.service';
 
 describe('AuthService (localStorage)', () => {
-  let service: AuthService;
-
   beforeEach(() => {
     localStorage.clear();
-    service = { getToken, isAuthenticated, logout, getCurrentUser } as unknown as AuthService;
   });
 
   function getToken(): string | null {
