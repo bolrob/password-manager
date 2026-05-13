@@ -18,10 +18,10 @@ module.exports = {
     '^@shared/(.*)$': '<rootDir>/src/app/shared/$1',
     '^@features/(.*)$': '<rootDir>/src/app/features/$1',
   },
+  testPathIgnorePatterns: ['/node_modules/', '/e2e/'],
   collectCoverageFrom: [
     'src/app/**/*.ts',
     '!src/app/**/*.spec.ts',
-    '!src/app/**/*.module.ts',
     '!src/main.ts',
   ],
 };

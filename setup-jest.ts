@@ -1,1 +1,1 @@
-import 'jest-preset-angular/setup-jest';
+// Minimal Jest setup for Angular 21
