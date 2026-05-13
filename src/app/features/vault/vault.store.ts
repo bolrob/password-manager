@@ -1,10 +1,7 @@
 import { computed, inject } from '@angular/core';
 import { patchState, signalStore, withComputed, withMethods, withState } from '@ngrx/signals';
-import {
-  CredentialFilter,
-  CredentialService,
-} from '../../core/services/credential.service';
 import { Credential, CredentialCategory } from '../../core/models';
+import { CredentialFilter, CredentialService } from '../../core/services/credential.service';
 
 interface VaultState {
   credentials: Credential[];
@@ -79,7 +76,8 @@ export const VaultStore = signalStore(
     create(dto: Parameters<CredentialService['create']>[0]): void {
       patchState(store, { loading: true });
       service.create(dto).subscribe({
-        next: (c) => patchState(store, { credentials: [...store.credentials(), c], loading: false }),
+        next: (c) =>
+          patchState(store, { credentials: [...store.credentials(), c], loading: false }),
         error: (err) => patchState(store, { error: err.message, loading: false }),
       });
     },

@@ -8,15 +8,15 @@
 
 ## Стек
 
-| Технология | Версия |
-|-----------|--------|
-| Angular | 21 |
-| Taiga UI | 5 |
-| NgRx Signal Store | 21 |
-| MSW (Mock Service Worker) | 2 |
+| Технология                 | Версия  |
+| -------------------------- | ------- |
+| Angular                    | 21      |
+| Taiga UI                   | 5       |
+| NgRx Signal Store          | 21      |
+| MSW (Mock Service Worker)  | 2       |
 | Jest + jest-preset-angular | 30 / 16 |
-| Playwright | 1.60 |
-| TypeScript | 5.9 |
+| Playwright                 | 1.60    |
+| TypeScript                 | 5.9     |
 
 ---
 
@@ -87,12 +87,12 @@ npm run format:check
 
 GitHub Actions (`.github/workflows/ci.yml`):
 
-| Job | Задачи |
-|-----|--------|
-| lint | ESLint, Stylelint, Prettier |
-| test | Jest unit-тесты |
-| build | `ng build --configuration production` |
-| deploy | GitHub Pages (только ветка `main`) |
+| Job    | Задачи                                |
+| ------ | ------------------------------------- |
+| lint   | ESLint, Stylelint, Prettier           |
+| test   | Jest unit-тесты                       |
+| build  | `ng build --configuration production` |
+| deploy | GitHub Pages (только ветка `main`)    |
 
 ---
 

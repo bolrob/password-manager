@@ -12,15 +12,15 @@ export class AuthService {
   private readonly apiUrl = '/api/auth';
 
   login(credentials: AuthCredentials): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.apiUrl}/login`, credentials).pipe(
-      tap((res) => this.saveSession(res)),
-    );
+    return this.http
+      .post<AuthResponse>(`${this.apiUrl}/login`, credentials)
+      .pipe(tap((res) => this.saveSession(res)));
   }
 
   register(credentials: RegisterCredentials): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.apiUrl}/register`, credentials).pipe(
-      tap((res) => this.saveSession(res)),
-    );
+    return this.http
+      .post<AuthResponse>(`${this.apiUrl}/register`, credentials)
+      .pipe(tap((res) => this.saveSession(res)));
   }
 
   logout(): void {

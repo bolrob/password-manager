@@ -22,19 +22,35 @@
 
       <div class="checkboxes" role="group" aria-label="Набор символов">
         <label class="checkbox-label">
-          <input type="checkbox" [ngModel]="options().uppercase" (ngModelChange)="updateOption('uppercase', $event)" />
+          <input
+            type="checkbox"
+            [ngModel]="options().uppercase"
+            (ngModelChange)="updateOption('uppercase', $event)"
+          />
           A–Z (заглавные)
         </label>
         <label class="checkbox-label">
-          <input type="checkbox" [ngModel]="options().lowercase" (ngModelChange)="updateOption('lowercase', $event)" />
+          <input
+            type="checkbox"
+            [ngModel]="options().lowercase"
+            (ngModelChange)="updateOption('lowercase', $event)"
+          />
           a–z (строчные)
         </label>
         <label class="checkbox-label">
-          <input type="checkbox" [ngModel]="options().numbers" (ngModelChange)="updateOption('numbers', $event)" />
+          <input
+            type="checkbox"
+            [ngModel]="options().numbers"
+            (ngModelChange)="updateOption('numbers', $event)"
+          />
           0–9 (цифры)
         </label>
         <label class="checkbox-label">
-          <input type="checkbox" [ngModel]="options().symbols" (ngModelChange)="updateOption('symbols', $event)" />
+          <input
+            type="checkbox"
+            [ngModel]="options().symbols"
+            (ngModelChange)="updateOption('symbols', $event)"
+          />
           !&#64;#$ (символы)
         </label>
       </div>

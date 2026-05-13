@@ -18,7 +18,12 @@
         <label tuiLabel>
           Логин / Email *
           <tui-textfield>
-            <input tuiTextfield formControlName="username" placeholder="user@example.com" autocomplete="off" />
+            <input
+              tuiTextfield
+              formControlName="username"
+              placeholder="user@example.com"
+              autocomplete="off"
+            />
           </tui-textfield>
         </label>
         <tui-error formControlName="username" />
@@ -36,17 +41,35 @@
                   autocomplete="new-password"
                 />
               </tui-textfield>
-              <button type="button" tuiButton appearance="ghost" size="s" (click)="showPassword.set(!showPassword())">
+              <button
+                type="button"
+                tuiButton
+                appearance="ghost"
+                size="s"
+                (click)="showPassword.set(!showPassword())"
+              >
                 {{ showPassword() ? '🙈' : '👁' }}
               </button>
-              <button type="button" tuiButton appearance="outline" size="s" (click)="generatePassword()">
+              <button
+                type="button"
+                tuiButton
+                appearance="outline"
+                size="s"
+                (click)="generatePassword()"
+              >
                 Генерировать
               </button>
             </div>
           </label>
 
           @if (form.get('password')?.value) {
-            <div class="strength-bar" role="progressbar" [attr.aria-valuenow]="passwordScore" aria-valuemin="0" aria-valuemax="100">
+            <div
+              class="strength-bar"
+              role="progressbar"
+              [attr.aria-valuenow]="passwordScore"
+              aria-valuemin="0"
+              aria-valuemax="100"
+            >
               <div
                 class="strength-fill"
                 [style.width.%]="passwordScore"
@@ -63,7 +86,12 @@
         <label tuiLabel>
           URL
           <tui-textfield>
-            <input tuiTextfield formControlName="url" type="url" placeholder="https://example.com" />
+            <input
+              tuiTextfield
+              formControlName="url"
+              type="url"
+              placeholder="https://example.com"
+            />
           </tui-textfield>
         </label>
 
@@ -94,7 +122,12 @@
         <label tuiLabel>
           Заметки
           <tui-textfield>
-            <textarea tuiTextfield formControlName="notes" rows="3" placeholder="Дополнительная информация"></textarea>
+            <textarea
+              tuiTextfield
+              formControlName="notes"
+              rows="3"
+              placeholder="Дополнительная информация"
+            ></textarea>
           </tui-textfield>
         </label>
 

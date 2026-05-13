@@ -39,9 +39,8 @@ export class PasswordService {
 
     if (!chars) return '';
 
-    const remaining = Array.from(
-      { length: options.length - required.length },
-      () => this.randomChar(chars),
+    const remaining = Array.from({ length: options.length - required.length }, () =>
+      this.randomChar(chars),
     );
 
     return this.shuffle([...required, ...remaining]).join('');

@@ -56,12 +56,12 @@ export const handlers = [
 
     if (search) {
       result = result.filter(
-        (c) =>
-          c.title.toLowerCase().includes(search) || c.username.toLowerCase().includes(search),
+        (c) => c.title.toLowerCase().includes(search) || c.username.toLowerCase().includes(search),
       );
     }
     if (category) result = result.filter((c) => c.category === category);
-    if (isExpiredParam !== null) result = result.filter((c) => c.isExpired === (isExpiredParam === 'true'));
+    if (isExpiredParam !== null)
+      result = result.filter((c) => c.isExpired === (isExpiredParam === 'true'));
     if (tagsParam) {
       const tags = tagsParam.split(',');
       result = result.filter((c) => tags.some((t) => c.tags.includes(t)));
@@ -77,7 +77,10 @@ export const handlers = [
     const data = credentials.filter((c) => c.userId === userId);
     const json = JSON.stringify(data, null, 2);
     return new HttpResponse(json, {
-      headers: { 'Content-Type': 'application/json', 'Content-Disposition': 'attachment; filename="export.json"' },
+      headers: {
+        'Content-Type': 'application/json',
+        'Content-Disposition': 'attachment; filename="export.json"',
+      },
     });
   }),
 
@@ -94,7 +97,10 @@ export const handlers = [
     const userId = getUserFromRequest(request);
     if (!userId) return HttpResponse.json({ message: 'Unauthorized' }, { status: 401 });
 
-    const body = (await request.json()) as Omit<Credential, 'id' | 'userId' | 'createdAt' | 'updatedAt' | 'passwordHistory'>;
+    const body = (await request.json()) as Omit<
+      Credential,
+      'id' | 'userId' | 'createdAt' | 'updatedAt' | 'passwordHistory'
+    >;
     const now = new Date().toISOString();
     const newCred: Credential = {
       ...body,
@@ -118,11 +124,22 @@ export const handlers = [
     const body = (await request.json()) as Partial<Credential>;
     const existing = credentials[idx];
 
-    const history = body.password && body.password !== existing.password
-      ? [{ password: existing.password, changedAt: existing.updatedAt }, ...existing.passwordHistory]
-      : existing.passwordHistory;
+    const history =
+      body.password && body.password !== existing.password
+        ? [
+            { password: existing.password, changedAt: existing.updatedAt },
+            ...existing.passwordHistory,
+          ]
+        : existing.passwordHistory;
 
-    const updated = { ...existing, ...body, id: existing.id, userId, passwordHistory: history, updatedAt: new Date().toISOString() };
+    const updated = {
+      ...existing,
+      ...body,
+      id: existing.id,
+      userId,
+      passwordHistory: history,
+      updatedAt: new Date().toISOString(),
+    };
     credentials[idx] = updated;
     return HttpResponse.json(updated);
   }),

@@ -25,6 +25,9 @@ export interface Credential {
   updatedAt: string;
 }
 
-export type CreateCredentialDto = Omit<Credential, 'id' | 'userId' | 'createdAt' | 'updatedAt' | 'passwordHistory'>;
+export type CreateCredentialDto = Omit<
+  Credential,
+  'id' | 'userId' | 'createdAt' | 'updatedAt' | 'passwordHistory'
+>;
 
 export type UpdateCredentialDto = Partial<CreateCredentialDto>;

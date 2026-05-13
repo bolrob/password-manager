@@ -39,7 +39,9 @@
       >
         <tui-icon icon="@tui.clock" /> Устаревшие
         @if (store.expiredCount() > 0) {
-          <span tuiBadge size="s" appearance="negative" class="nav-badge">{{ store.expiredCount() }}</span>
+          <span tuiBadge size="s" appearance="negative" class="nav-badge">{{
+            store.expiredCount()
+          }}</span>
         }
       </button>
     </nav>
@@ -106,7 +108,10 @@
                 <span class="card-username">{{ cred.username }}</span>
 
                 <div class="card-password-row">
-                  <span class="card-password" [class.card-password--visible]="isPasswordVisible(cred.id)">
+                  <span
+                    class="card-password"
+                    [class.card-password--visible]="isPasswordVisible(cred.id)"
+                  >
                     {{ isPasswordVisible(cred.id) ? cred.password : '••••••••' }}
                   </span>
                   <button
@@ -114,7 +119,9 @@
                     appearance="ghost"
                     size="xs"
                     (click)="togglePasswordVisibility(cred.id)"
-                    [attr.aria-label]="isPasswordVisible(cred.id) ? 'Скрыть пароль' : 'Показать пароль'"
+                    [attr.aria-label]="
+                      isPasswordVisible(cred.id) ? 'Скрыть пароль' : 'Показать пароль'
+                    "
                   >
                     <tui-icon [icon]="isPasswordVisible(cred.id) ? '@tui.eye-off' : '@tui.eye'" />
                   </button>

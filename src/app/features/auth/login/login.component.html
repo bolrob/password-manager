@@ -36,18 +36,11 @@
       </label>
       <tui-error formControlName="password" />
 
-      <button
-        tuiButton
-        type="submit"
-        appearance="primary"
-        class="auth-submit"
-      >
+      <button tuiButton type="submit" appearance="primary" class="auth-submit">
         {{ loading() ? 'Загрузка...' : 'Войти' }}
       </button>
     </form>
 
-    <p class="auth-link">
-      Нет аккаунта? <a routerLink="/auth/register">Зарегистрироваться</a>
-    </p>
+    <p class="auth-link">Нет аккаунта? <a routerLink="/auth/register">Зарегистрироваться</a></p>
   </div>
 </div>

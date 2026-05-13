@@ -19,9 +19,5 @@ module.exports = {
     '^@features/(.*)$': '<rootDir>/src/app/features/$1',
   },
   testPathIgnorePatterns: ['/node_modules/', '/e2e/'],
-  collectCoverageFrom: [
-    'src/app/**/*.ts',
-    '!src/app/**/*.spec.ts',
-    '!src/main.ts',
-  ],
+  collectCoverageFrom: ['src/app/**/*.ts', '!src/app/**/*.spec.ts', '!src/main.ts'],
 };

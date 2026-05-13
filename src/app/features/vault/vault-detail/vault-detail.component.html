@@ -24,7 +24,13 @@
           <dt>Логин</dt>
           <dd>
             {{ cred.username }}
-            <button tuiButton appearance="ghost" size="xs" (click)="copyToClipboard(cred.username)" aria-label="Скопировать логин">
+            <button
+              tuiButton
+              appearance="ghost"
+              size="xs"
+              (click)="copyToClipboard(cred.username)"
+              aria-label="Скопировать логин"
+            >
               <tui-icon icon="@tui.copy" />
             </button>
           </dd>
@@ -33,11 +39,25 @@
         <div class="field-row">
           <dt>Пароль</dt>
           <dd>
-            <span class="password-value">{{ showPassword() ? cred.password : '••••••••••••' }}</span>
-            <button tuiButton appearance="ghost" size="xs" (click)="showPassword.set(!showPassword())" [attr.aria-label]="showPassword() ? 'Скрыть' : 'Показать'">
+            <span class="password-value">{{
+              showPassword() ? cred.password : '••••••••••••'
+            }}</span>
+            <button
+              tuiButton
+              appearance="ghost"
+              size="xs"
+              (click)="showPassword.set(!showPassword())"
+              [attr.aria-label]="showPassword() ? 'Скрыть' : 'Показать'"
+            >
               <tui-icon [icon]="showPassword() ? '@tui.eye-off' : '@tui.eye'" />
             </button>
-            <button tuiButton appearance="ghost" size="xs" (click)="copyToClipboard(cred.password)" aria-label="Скопировать пароль">
+            <button
+              tuiButton
+              appearance="ghost"
+              size="xs"
+              (click)="copyToClipboard(cred.password)"
+              aria-label="Скопировать пароль"
+            >
               <tui-icon icon="@tui.copy" />
             </button>
           </dd>
@@ -62,7 +82,9 @@
         @if (cred.url) {
           <div class="field-row">
             <dt>URL</dt>
-            <dd><a [href]="cred.url" target="_blank" rel="noopener noreferrer">{{ cred.url }}</a></dd>
+            <dd>
+              <a [href]="cred.url" target="_blank" rel="noopener noreferrer">{{ cred.url }}</a>
+            </dd>
           </div>
         }
 
@@ -76,7 +98,7 @@
         @if (cred.reminderDate) {
           <div class="field-row">
             <dt>Напоминание</dt>
-            <dd>{{ cred.reminderDate | date:'dd.MM.yyyy' }}</dd>
+            <dd>{{ cred.reminderDate | date: 'dd.MM.yyyy' }}</dd>
           </div>
         }
 
@@ -93,12 +115,12 @@
 
         <div class="field-row">
           <dt>Создано</dt>
-          <dd>{{ cred.createdAt | date:'dd.MM.yyyy HH:mm' }}</dd>
+          <dd>{{ cred.createdAt | date: 'dd.MM.yyyy HH:mm' }}</dd>
         </div>
 
         <div class="field-row">
           <dt>Обновлено</dt>
-          <dd>{{ cred.updatedAt | date:'dd.MM.yyyy HH:mm' }}</dd>
+          <dd>{{ cred.updatedAt | date: 'dd.MM.yyyy HH:mm' }}</dd>
         </div>
       </dl>
 
@@ -109,7 +131,7 @@
             @for (entry of cred.passwordHistory; track entry.changedAt) {
               <li class="history-item">
                 <span class="history-password">••••••••</span>
-                <span class="history-date">{{ entry.changedAt | date:'dd.MM.yyyy HH:mm' }}</span>
+                <span class="history-date">{{ entry.changedAt | date: 'dd.MM.yyyy HH:mm' }}</span>
               </li>
             }
           </ul>

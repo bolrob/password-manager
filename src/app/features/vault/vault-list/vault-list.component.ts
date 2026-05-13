@@ -1,27 +1,18 @@
 import { ChangeDetectionStrategy, Component, OnInit, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { TuiBadge, TuiChip } from '@taiga-ui/kit';
 import { TuiButton, TuiIcon, TuiTextfield, TuiTitle } from '@taiga-ui/core';
+import { TuiBadge, TuiChip } from '@taiga-ui/kit';
+import { CredentialCategory } from '../../../core/models';
 import { AuthService } from '../../../core/services/auth.service';
 import { CredentialService } from '../../../core/services/credential.service';
 import { PasswordService } from '../../../core/services/password.service';
-import { CredentialCategory } from '../../../core/models';
-import { CATEGORY_LABELS, ALL_CATEGORIES } from '../../../shared/utils/category.utils';
+import { ALL_CATEGORIES, CATEGORY_LABELS } from '../../../shared/utils/category.utils';
 import { VaultStore } from '../vault.store';
 
 @Component({
   selector: 'app-vault-list',
-  imports: [
-    FormsModule,
-    RouterLink,
-    TuiTextfield,
-    TuiButton,
-    TuiIcon,
-    TuiTitle,
-    TuiBadge,
-    TuiChip,
-  ],
+  imports: [FormsModule, RouterLink, TuiTextfield, TuiButton, TuiIcon, TuiTitle, TuiBadge, TuiChip],
   templateUrl: './vault-list.component.html',
   styleUrl: './vault-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

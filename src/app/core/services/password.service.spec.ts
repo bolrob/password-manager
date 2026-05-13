@@ -9,27 +9,57 @@ describe('PasswordService', () => {
 
   describe('generate', () => {
     it('should generate password of specified length', () => {
-      const pwd = service.generate({ length: 16, uppercase: true, lowercase: true, numbers: true, symbols: false });
+      const pwd = service.generate({
+        length: 16,
+        uppercase: true,
+        lowercase: true,
+        numbers: true,
+        symbols: false,
+      });
       expect(pwd).toHaveLength(16);
     });
 
     it('should return empty string when no charset selected', () => {
-      const pwd = service.generate({ length: 16, uppercase: false, lowercase: false, numbers: false, symbols: false });
+      const pwd = service.generate({
+        length: 16,
+        uppercase: false,
+        lowercase: false,
+        numbers: false,
+        symbols: false,
+      });
       expect(pwd).toBe('');
     });
 
     it('should contain uppercase when enabled', () => {
-      const pwd = service.generate({ length: 50, uppercase: true, lowercase: false, numbers: false, symbols: false });
+      const pwd = service.generate({
+        length: 50,
+        uppercase: true,
+        lowercase: false,
+        numbers: false,
+        symbols: false,
+      });
       expect(/[A-Z]/.test(pwd)).toBe(true);
     });
 
     it('should contain digits when numbers enabled', () => {
-      const pwd = service.generate({ length: 50, uppercase: false, lowercase: false, numbers: true, symbols: false });
+      const pwd = service.generate({
+        length: 50,
+        uppercase: false,
+        lowercase: false,
+        numbers: true,
+        symbols: false,
+      });
       expect(/\d/.test(pwd)).toBe(true);
     });
 
     it('should contain symbols when enabled', () => {
-      const pwd = service.generate({ length: 50, uppercase: false, lowercase: false, numbers: false, symbols: true });
+      const pwd = service.generate({
+        length: 50,
+        uppercase: false,
+        lowercase: false,
+        numbers: false,
+        symbols: true,
+      });
       expect(/[^A-Za-z0-9]/.test(pwd)).toBe(true);
     });
 
@@ -41,7 +71,13 @@ describe('PasswordService', () => {
     });
 
     it('should only contain lowercase when only lowercase enabled', () => {
-      const pwd = service.generate({ length: 50, uppercase: false, lowercase: true, numbers: false, symbols: false });
+      const pwd = service.generate({
+        length: 50,
+        uppercase: false,
+        lowercase: true,
+        numbers: false,
+        symbols: false,
+      });
       expect(/^[a-z]+$/.test(pwd)).toBe(true);
     });
   });

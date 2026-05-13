@@ -8,7 +8,15 @@ import { StrengthLabelPipe } from '../../shared/pipes/strength-label.pipe';
 
 @Component({
   selector: 'app-generator',
-  imports: [FormsModule, RouterLink, TuiTextfield, TuiButton, TuiIcon, StrengthColorPipe, StrengthLabelPipe],
+  imports: [
+    FormsModule,
+    RouterLink,
+    TuiTextfield,
+    TuiButton,
+    TuiIcon,
+    StrengthColorPipe,
+    StrengthLabelPipe,
+  ],
   templateUrl: './generator.component.html',
   styleUrl: './generator.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

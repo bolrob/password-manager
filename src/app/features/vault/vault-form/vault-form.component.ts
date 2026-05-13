@@ -2,12 +2,12 @@ import { ChangeDetectionStrategy, Component, OnInit, inject, signal } from '@ang
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { TuiButton, TuiError, TuiTextfield } from '@taiga-ui/core';
+import { CredentialCategory } from '../../../core/models';
 import { CredentialService } from '../../../core/services/credential.service';
 import { PasswordService } from '../../../core/services/password.service';
-import { CredentialCategory } from '../../../core/models';
-import { ALL_CATEGORIES, CATEGORY_LABELS } from '../../../shared/utils/category.utils';
 import { StrengthColorPipe } from '../../../shared/pipes/strength-color.pipe';
 import { StrengthLabelPipe } from '../../../shared/pipes/strength-label.pipe';
+import { ALL_CATEGORIES, CATEGORY_LABELS } from '../../../shared/utils/category.utils';
 import { VaultStore } from '../vault.store';
 
 @Component({
