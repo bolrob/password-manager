@@ -126,12 +126,68 @@
 
       @if (cred.passwordHistory.length > 0) {
         <section class="history-section" aria-labelledby="history-heading">
-          <h2 id="history-heading" class="history-title">История паролей</h2>
+          <h2 id="history-heading" class="history-title">
+            <tui-icon icon="@tui.history" aria-hidden="true" />
+            История паролей
+            <span class="history-count">{{ cred.passwordHistory.length }}</span>
+          </h2>
           <ul class="history-list">
-            @for (entry of cred.passwordHistory; track entry.changedAt) {
+            @for (entry of cred.passwordHistory; let i = $index; track entry.changedAt) {
               <li class="history-item">
-                <span class="history-password">••••••••</span>
-                <span class="history-date">{{ entry.changedAt | date: 'dd.MM.yyyy HH:mm' }}</span>
+                <div class="history-index">{{ i + 1 }}</div>
+                <div class="history-body">
+                  <div class="history-password-row">
+                    <span
+                      class="history-password"
+                      [class.history-password--visible]="isHistoryVisible(entry.changedAt)"
+                    >
+                      {{ isHistoryVisible(entry.changedAt) ? entry.password : '••••••••••••' }}
+                    </span>
+                    <button
+                      tuiButton
+                      appearance="ghost"
+                      size="xs"
+                      (click)="toggleHistoryPassword(entry.changedAt)"
+                      [attr.aria-label]="
+                        isHistoryVisible(entry.changedAt) ? 'Скрыть пароль' : 'Показать пароль'
+                      "
+                    >
+                      <tui-icon
+                        [icon]="isHistoryVisible(entry.changedAt) ? '@tui.eye-off' : '@tui.eye'"
+                      />
+                    </button>
+                    <button
+                      tuiButton
+                      appearance="ghost"
+                      size="xs"
+                      (click)="copyToClipboard(entry.password)"
+                      aria-label="Скопировать пароль"
+                    >
+                      <tui-icon icon="@tui.copy" />
+                    </button>
+                  </div>
+                  <div class="history-meta">
+                    <div class="history-strength-bar">
+                      <div
+                        class="history-strength-fill"
+                        [style.width.%]="passwordService.getStrengthScore(entry.password)"
+                        [style.background]="
+                          passwordService.getStrength(entry.password) | strengthColor
+                        "
+                      ></div>
+                    </div>
+                    <span
+                      class="history-strength-label"
+                      [style.color]="passwordService.getStrength(entry.password) | strengthColor"
+                    >
+                      {{ passwordService.getStrength(entry.password) | strengthLabel }}
+                    </span>
+                    <span class="history-date">
+                      <tui-icon icon="@tui.clock" aria-hidden="true" />
+                      {{ entry.changedAt | date: 'dd.MM.yyyy HH:mm' }}
+                    </span>
+                  </div>
+                </div>
               </li>
             }
           </ul>

@@ -119,10 +119,21 @@ export class VaultFormComponent implements OnInit {
 
     const id = this.editId;
     if (id) {
-      this.store.update(id, dto);
+      this.credentialService.update(id, dto).subscribe({
+        next: () => {
+          this.store.loadAll();
+          this.router.navigate(['/vault', id]);
+        },
+        error: () => this.loading.set(false),
+      });
     } else {
-      this.store.create(dto);
+      this.credentialService.create(dto).subscribe({
+        next: () => {
+          this.store.loadAll();
+          this.router.navigate(['/vault']);
+        },
+        error: () => this.loading.set(false),
+      });
     }
-    this.router.navigate(['/vault']);
   }
 }

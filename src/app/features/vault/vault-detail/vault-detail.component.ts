@@ -33,6 +33,7 @@ export class VaultDetailComponent implements OnInit {
   readonly credential = signal<Credential | null>(null);
   readonly showPassword = signal(false);
   readonly categoryLabels = CATEGORY_LABELS;
+  readonly revealedHistory = signal<Set<string>>(new Set());
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id')!;
@@ -41,5 +42,19 @@ export class VaultDetailComponent implements OnInit {
 
   copyToClipboard(text: string): void {
     navigator.clipboard.writeText(text);
+  }
+
+  toggleHistoryPassword(changedAt: string): void {
+    const next = new Set(this.revealedHistory());
+    if (next.has(changedAt)) {
+      next.delete(changedAt);
+    } else {
+      next.add(changedAt);
+    }
+    this.revealedHistory.set(next);
+  }
+
+  isHistoryVisible(changedAt: string): boolean {
+    return this.revealedHistory().has(changedAt);
   }
 }
