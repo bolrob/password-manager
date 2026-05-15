@@ -1,4 +1,7 @@
 import { setupWorker } from 'msw/browser';
-import { handlers } from './handlers';
+import { getHandlers } from './handlers';
 
-export const worker = setupWorker(...handlers);
+// Remove trailing slash: 'https://bolrob.github.io/password-manager/' → '…/password-manager'
+const apiBase = document.baseURI.replace(/\/$/, '');
+
+export const worker = setupWorker(...getHandlers(apiBase));

@@ -1,3 +1,4 @@
+import { DOCUMENT } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable, tap } from 'rxjs';
@@ -9,7 +10,7 @@ const USER_KEY = 'pm_user';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private readonly http = inject(HttpClient);
-  private readonly apiUrl = '/api/auth';
+  private readonly apiUrl = `${inject(DOCUMENT).baseURI.replace(/\/$/, '')}/api/auth`;
 
   login(credentials: AuthCredentials): Observable<AuthResponse> {
     return this.http

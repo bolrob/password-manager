@@ -1,3 +1,4 @@
+import { DOCUMENT } from '@angular/common';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -18,7 +19,7 @@ export interface CredentialFilter {
 @Injectable({ providedIn: 'root' })
 export class CredentialService {
   private readonly http = inject(HttpClient);
-  private readonly apiUrl = '/api/credentials';
+  private readonly apiUrl = `${inject(DOCUMENT).baseURI.replace(/\/$/, '')}/api/credentials`;
 
   getAll(filter?: CredentialFilter): Observable<Credential[]> {
     let params = new HttpParams();
