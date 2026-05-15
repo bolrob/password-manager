@@ -8,7 +8,7 @@ async function bootstrap() {
     await worker
       .start({
         onUnhandledRequest: 'bypass',
-        serviceWorker: { url: '/mockServiceWorker.js' },
+        serviceWorker: { url: `${document.baseURI}mockServiceWorker.js` },
       })
       .catch((err) => console.warn('[MSW] Worker failed to start:', err));
   }
