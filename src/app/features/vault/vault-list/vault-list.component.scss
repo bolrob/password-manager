@@ -234,6 +234,13 @@
 .card-title {
   font-size: 1rem;
   font-weight: 600;
+  color: var(--tui-text-primary);
+  text-decoration: none;
+
+  &:hover {
+    color: var(--tui-text-action);
+    text-decoration: underline;
+  }
 }
 
 .icon-favorite {

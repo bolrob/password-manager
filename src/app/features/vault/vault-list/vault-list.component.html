@@ -120,7 +120,7 @@
             <div class="card-main">
               <div class="card-info">
                 <div class="card-title-row">
-                  <strong class="card-title">{{ cred.title }}</strong>
+                  <a class="card-title" [routerLink]="['/vault', cred.id]">{{ cred.title }}</a>
                   @if (cred.isFavorite) {
                     <tui-icon icon="@tui.star" class="icon-favorite" aria-label="Избранное" />
                   }
@@ -172,12 +172,13 @@
               <div class="card-actions">
                 <a
                   tuiButton
-                  appearance="ghost"
+                  appearance="outline"
                   size="s"
                   [routerLink]="['/vault', cred.id, 'edit']"
                   aria-label="Редактировать"
                 >
                   <tui-icon icon="@tui.pencil" />
+                  Изменить
                 </a>
                 <button
                   tuiButton
