@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, OnInit, inject, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  computed,
+  inject,
+  signal,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { TuiButton, TuiIcon, TuiTextfield, TuiTitle } from '@taiga-ui/core';
@@ -31,7 +38,18 @@ export class VaultListComponent implements OnInit {
   selectedCategory: CredentialCategory | '' = '';
   showExpiredOnly = false;
 
+  readonly selectedTags = signal<Set<string>>(new Set());
   readonly visiblePasswords = signal<Set<string>>(new Set());
+
+  readonly allTags = computed(() => {
+    const tags = new Set<string>();
+    for (const cred of this.store.credentials()) {
+      for (const tag of cred.tags) {
+        tags.add(tag);
+      }
+    }
+    return Array.from(tags).sort();
+  });
 
   ngOnInit(): void {
     this.store.loadAll();
@@ -42,12 +60,34 @@ export class VaultListComponent implements OnInit {
   }
 
   applyFilter(): void {
+    const tags = Array.from(this.selectedTags());
     this.store.setFilter({
       search: this.searchQuery || undefined,
       category: (this.selectedCategory as CredentialCategory) || undefined,
       isExpired: this.showExpiredOnly ? true : undefined,
+      tags: tags.length ? tags : undefined,
     });
     this.store.loadAll();
+  }
+
+  toggleTag(tag: string): void {
+    const next = new Set(this.selectedTags());
+    if (next.has(tag)) {
+      next.delete(tag);
+    } else {
+      next.add(tag);
+    }
+    this.selectedTags.set(next);
+    this.applyFilter();
+  }
+
+  isTagSelected(tag: string): boolean {
+    return this.selectedTags().has(tag);
+  }
+
+  clearTags(): void {
+    this.selectedTags.set(new Set());
+    this.applyFilter();
   }
 
   togglePasswordVisibility(id: string): void {

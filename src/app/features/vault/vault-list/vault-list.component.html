@@ -79,6 +79,30 @@
       </a>
     </header>
 
+    @if (allTags().length > 0) {
+      <div class="tags-filter" aria-label="Фильтр по тегам">
+        <span class="tags-filter-label">Теги:</span>
+        <div class="tags-filter-chips">
+          @for (tag of allTags(); track tag) {
+            <button
+              tuiChip
+              [attr.data-selected]="isTagSelected(tag) || null"
+              [class.tag-chip--active]="isTagSelected(tag)"
+              (click)="toggleTag(tag)"
+              [attr.aria-pressed]="isTagSelected(tag)"
+            >
+              {{ tag }}
+            </button>
+          }
+        </div>
+        @if (selectedTags().size > 0) {
+          <button tuiButton appearance="ghost" size="xs" (click)="clearTags()">
+            <tui-icon icon="@tui.x" /> Сбросить
+          </button>
+        }
+      </div>
+    }
+
     @if (store.loading()) {
       <div class="vault-loading" role="status" aria-live="polite">Загрузка...</div>
     } @else if (store.error()) {
