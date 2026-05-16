@@ -81,9 +81,7 @@ export const MOCK_CREDENTIALS: Credential[] = [
     isFavorite: true,
     isExpired: false,
     notes: 'Production account. MFA enabled.',
-    passwordHistory: [
-      { password: 'OldAws2023!', changedAt: '2023-06-01T00:00:00Z' },
-    ],
+    passwordHistory: [{ password: 'OldAws2023!', changedAt: '2023-06-01T00:00:00Z' }],
     createdAt: '2023-06-01T00:00:00Z',
     updatedAt: '2024-03-10T00:00:00Z',
   },
@@ -173,9 +171,7 @@ export const MOCK_CREDENTIALS: Credential[] = [
     tags: ['банк'],
     isFavorite: false,
     isExpired: false,
-    passwordHistory: [
-      { password: 'TinkOld2023!', changedAt: '2023-12-01T00:00:00Z' },
-    ],
+    passwordHistory: [{ password: 'TinkOld2023!', changedAt: '2023-12-01T00:00:00Z' }],
     createdAt: '2023-12-01T00:00:00Z',
     updatedAt: '2024-04-01T00:00:00Z',
   },
@@ -377,9 +373,7 @@ export const MOCK_CREDENTIALS: Credential[] = [
     isFavorite: true,
     isExpired: false,
     notes: 'Production web server. Port 22.',
-    passwordHistory: [
-      { password: 'UbuntuOld2023', changedAt: '2023-11-01T00:00:00Z' },
-    ],
+    passwordHistory: [{ password: 'UbuntuOld2023', changedAt: '2023-11-01T00:00:00Z' }],
     createdAt: '2023-11-01T00:00:00Z',
     updatedAt: '2024-02-01T00:00:00Z',
   },
