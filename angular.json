@@ -35,7 +35,13 @@
                 "output": "assets/taiga-ui/icons"
               }
             ],
-            "styles": ["src/styles.scss"]
+            "styles": [
+              "node_modules/@taiga-ui/design-tokens/fonts/desktop.css",
+              "node_modules/@taiga-ui/design-tokens/palette/light.css",
+              "node_modules/@taiga-ui/design-tokens/palette/shadow.css",
+              "node_modules/@taiga-ui/design-tokens/palette/animation.css",
+              "src/styles.scss"
+            ]
           },
           "configurations": {
             "production": {
