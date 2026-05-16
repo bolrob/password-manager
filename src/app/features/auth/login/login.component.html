@@ -3,6 +3,22 @@
     <h1 class="auth-title">PassVault</h1>
     <p class="auth-subtitle">Войдите в аккаунт</p>
 
+    <div class="test-accounts">
+      <p class="test-accounts-label">Тестовые аккаунты</p>
+      <div class="test-accounts-list">
+        @for (account of testAccounts; track account.email) {
+          <button
+            type="button"
+            class="test-account-btn"
+            (click)="fillTestAccount(account)"
+          >
+            <span class="test-account-name">{{ account.name }}</span>
+            <span class="test-account-desc">{{ account.description }}</span>
+          </button>
+        }
+      </div>
+    </div>
+
     @if (error()) {
       <div class="auth-error" role="alert">{{ error() }}</div>
     }

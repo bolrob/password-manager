@@ -4,6 +4,34 @@ import { Router, RouterLink } from '@angular/router';
 import { TuiButton, TuiError, TuiTextfield } from '@taiga-ui/core';
 import { AuthService } from '../../../core/services/auth.service';
 
+interface TestAccount {
+  name: string;
+  email: string;
+  password: string;
+  description: string;
+}
+
+const TEST_ACCOUNTS: TestAccount[] = [
+  {
+    name: 'Demo User',
+    email: 'demo@example.com',
+    password: 'Demo1234!',
+    description: 'Веб-сервисы, соцсети, банки',
+  },
+  {
+    name: 'Alice Dev',
+    email: 'alice@example.com',
+    password: 'Alice1234!',
+    description: 'DevOps, облака, CI/CD',
+  },
+  {
+    name: 'Bob Admin',
+    email: 'bob@example.com',
+    password: 'Bob1234!',
+    description: 'Серверы, базы данных, мониторинг',
+  },
+];
+
 @Component({
   selector: 'app-login',
   imports: [ReactiveFormsModule, RouterLink, TuiTextfield, TuiButton, TuiError],
@@ -23,6 +51,12 @@ export class LoginComponent {
 
   readonly loading = signal(false);
   readonly error = signal<string | null>(null);
+  readonly testAccounts = TEST_ACCOUNTS;
+
+  fillTestAccount(account: TestAccount): void {
+    this.form.setValue({ email: account.email, password: account.password });
+    this.error.set(null);
+  }
 
   submit(): void {
     if (this.form.invalid) {
