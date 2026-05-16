@@ -155,6 +155,7 @@
                       <tui-icon
                         [icon]="isHistoryVisible(entry.changedAt) ? '@tui.eye-off' : '@tui.eye'"
                       />
+                      {{ isHistoryVisible(entry.changedAt) ? 'Скрыть' : 'Показать' }}
                     </button>
                     <button
                       tuiButton
